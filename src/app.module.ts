@@ -50,11 +50,13 @@ const cookieSession = require('cookie-session');
   ]
 })
 export class AppModule {
+  constructor(protected configService: ConfigService) {
+  }
   // Set global middleware
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(
       cookieSession({
-          keys: ["sdcsdcsdcsdc"]
+          keys: [this.configService.get('APP_KEY')]
         }
       ))
       .forRoutes("*");
